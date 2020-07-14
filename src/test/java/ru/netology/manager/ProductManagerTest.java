@@ -11,7 +11,6 @@ import ru.netology.repository.ProductRepository;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -48,6 +47,20 @@ class ProductManagerTest {
 
         Product[] expected = {product1};
         Product[] actual = productManager.searchBy(request);
+
+        assertArrayEquals(expected, actual);
+
+        request = "book1";
+
+        expected[0] = product2_1;
+        actual = productManager.searchBy(request);
+
+        assertArrayEquals(expected, actual);
+
+        request = "smartphone1";
+
+        expected[0] = product3;
+        actual = productManager.searchBy(request);
 
         assertArrayEquals(expected, actual);
     }
