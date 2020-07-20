@@ -20,13 +20,17 @@ public class ProductManager {
 
 
     public Product[] searchBy(String request) {
-        ArrayList<Product> matches = new ArrayList<>();
+        Product[] arrayMatches = new Product[0];
 
         for (Product product : repository.findAll()) {
-            if (product.matches(request))
-                matches.add(product);
+            if (product.matches(request)) {
+                Product[] tmp = new Product[arrayMatches.length + 1];
+                System.arraycopy(arrayMatches, 0, tmp, 0, arrayMatches.length);
+                tmp[arrayMatches.length] = product;
+                arrayMatches = tmp;
+            }
         }
 
-        return matches.toArray(new Product[0]);
+        return arrayMatches;
     }
 }
