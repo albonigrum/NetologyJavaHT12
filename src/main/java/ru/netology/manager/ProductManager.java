@@ -21,24 +21,36 @@ public class ProductManager {
     private boolean matches(Product product, String text) {
         if (text.isEmpty())
             return false;
+
         if (product.getName().equalsIgnoreCase(text))
             return true;
-        if (product instanceof Book && ((Book) product).getAuthor().equalsIgnoreCase(text))
-            return true;
-        if (product instanceof Smartphone && ((Smartphone) product).getManufacturer().equalsIgnoreCase(text))
-            return true;
+
+        if (product instanceof Book) {
+            Book book = (Book) product;
+            if (book.getAuthor().equalsIgnoreCase(text))
+                return true;
+        }
+        if (product instanceof Smartphone) {
+            Smartphone smartphone = (Smartphone) product;
+            if (smartphone.getManufacturer().equalsIgnoreCase(text))
+                return true;
+        }
         return false;
 
     }
 
     public Product[] searchBy(String request) {
-        ArrayList<Product> matches = new ArrayList<>();
+        Product[] arrayMatches = new Product[0];
 
         for (Product product : repository.findAll()) {
-            if (matches(product, request))
-                matches.add(product);
+            if (matches(product, request)) {
+                Product[] tmp = new Product[arrayMatches.length + 1];
+                System.arraycopy(arrayMatches, 0, tmp, 0, arrayMatches.length);
+                tmp[arrayMatches.length] = product;
+                arrayMatches = tmp;
+            }
         }
 
-        return matches.toArray(new Product[0]);
+        return arrayMatches;
     }
 }
