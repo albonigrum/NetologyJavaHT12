@@ -53,20 +53,6 @@ class ProductManagerTest {
         Product[] actual = productManager.searchBy(request);
 
         assertArrayEquals(expected, actual);
-
-        request = "book1";
-
-        expected[0] = product2_1;
-        actual = productManager.searchBy(request);
-
-        assertArrayEquals(expected, actual);
-
-        request = "smartphone1";
-
-        expected[0] = product3;
-        actual = productManager.searchBy(request);
-
-        assertArrayEquals(expected, actual);
     }
     @Test
     void shouldSearchByByNameBook() {
